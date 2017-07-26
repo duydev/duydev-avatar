@@ -20,13 +20,16 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('password');
+            $table->string('fb_id')->nullable();
+            $table->text('fb_token')->nullable();
+            $table->boolean('active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });
 
         DB::statement('ALTER TABLE `users` ROW_FORMAT=DYNAMIC;');
         Schema::table('users', function (Blueprint $table){
-            $table->unique('email');
+            $table->unique(['email','fb_id']);
         });
     }
 

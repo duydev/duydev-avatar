@@ -2,6 +2,7 @@
 
 namespace DuyDev\Providers;
 
+use DuyDev\Config;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +31,15 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
+    }
+
+    public function setAppConfig()
+    {
+        if( \Schema::hasTable('configs') ) {
+            foreach (Config::all() as $item){
+                config([ "app.$item->key" => $item->value ]);
+            }
         }
     }
 }

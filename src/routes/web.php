@@ -13,6 +13,13 @@
 
 Route::group(['namespace'=>'Frontend'], function(){
     Route::get('/', 'HomeController@index')->name('home');
+
+    Route::group(['middleware'=>'guest'],function (){
+        Route::get('/fblogin', 'FBAuthController@login')->name('fblogin');
+        Route::get('/fbcallback', 'FBAuthController@callback')->name('fbcallback');
+    });
+
+
 });
 
 

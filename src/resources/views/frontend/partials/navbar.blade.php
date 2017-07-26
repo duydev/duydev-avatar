@@ -10,7 +10,7 @@
             <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            
+
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
