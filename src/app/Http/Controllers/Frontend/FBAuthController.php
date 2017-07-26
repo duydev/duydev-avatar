@@ -35,7 +35,7 @@ class FBAuthController extends Controller
     public function login()
     {
         $login_url = $this->helper->getLoginUrl($this->callback_url, $this->permissions);
-        return view('frontend.auth.fblogin', compact('login_url'));
+        return redirect( $login_url );
     }
 
     public function callback() {
