@@ -13,15 +13,20 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::
+        Schema::dropIfExists('users');
 
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        DB::statement('ALTER TABLE `users` ROW_FORMAT=DYNAMIC;');
+        Schema::table('users', function (Blueprint $table){
+            $table->unique('email');
         });
     }
 

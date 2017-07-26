@@ -13,10 +13,17 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('password_resets');
+
         Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
+            $table->string('email');
             $table->string('token');
             $table->timestamp('created_at')->nullable();
+        });
+
+        DB::statement('ALTER TABLE `password_resets` ROW_FORMAT=DYNAMIC;');
+        Schema::table('password_resets', function (Blueprint $table){
+            $table->index('email');
         });
     }
 

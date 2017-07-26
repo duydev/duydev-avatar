@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace'=>'Frontend'], function(){
+    Route::get('/', 'HomeController@index')->name('home');
 });
+
+
+Route::get('/home', 'HomeController@index');
+
+Auth::routes();
+
