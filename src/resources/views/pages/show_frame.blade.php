@@ -1,5 +1,7 @@
 @extends('layouts.topnav')
 
+@section('page-title', sprintf('Khung %s của %s', $frame->title, $frame->user->name ) )
+
 @section('page-header','')
 
 @section('content')

@@ -1,5 +1,7 @@
 @extends('layouts.topnav')
 
+@section('page-title','Trang chủ')
+
 @section('page-header','')
 
 @section('content')

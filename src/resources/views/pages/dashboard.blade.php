@@ -1,5 +1,7 @@
 @extends('layouts.topnav')
 
+@section('page-title','Bảng điều khiển')
+
 @section('page-header','')
 
 @section('content')
