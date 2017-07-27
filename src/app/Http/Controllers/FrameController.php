@@ -134,7 +134,7 @@ class FrameController extends Controller
         if( ! $frame ) {
             return redirect()->back()->with('success',false)->with('message','Khung này không tồn tại.');
         }
-
+        $frame->removeImages();
         $this->frame->delete($frame->id);
         return redirect()->back()->with('success',true)->with('message','Xóa thành công.');
     }

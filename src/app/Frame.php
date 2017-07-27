@@ -53,4 +53,13 @@ class Frame extends Model
         return asset("uploads/user-$user_id/thumb-$this->id.png");
     }
 
+    public function removeImages() {
+        $user_id = $this->user_id;
+        $thumb_path = public_path("uploads/user-$user_id/thumb-$this->id.png");
+        $default_path = public_path("uploads/$this->default_picture");
+        unlink($thumb_path);
+        unlink($this->realpath());
+        unlink($default_path);
+    }
+
 }
