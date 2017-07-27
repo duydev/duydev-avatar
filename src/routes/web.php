@@ -12,6 +12,7 @@
 */
 
 Route::get('/','HomeController@index')->name('home');
+Route::get('/{slug}', 'FrameController@showFrame')->name('show_frame');
 
 Route::group(['middleware'=>'guest'],function(){
     Route::get('login', 'Auth\FBAuthController@login')->name('login');
@@ -23,6 +24,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::get('frame/create','FrameController@formCreate')->name('create_frame');
     Route::post('frame/create','FrameController@add');
+    Route::post('slug', 'FrameController@slug')->name('slug');
 });
 
 // Auth::routes();

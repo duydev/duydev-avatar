@@ -65,3 +65,18 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(function(){
+            $('[name="title"]').change(function(){
+                $.post('{{ route('slug') }}', {
+                    '_token':'{{ csrf_token() }}',
+                    'title':$(this).val()
+                },function(res){
+                    $('[name="slug"]').val(res.slug);
+                });
+            });
+        });
+    </script>
+@endpush

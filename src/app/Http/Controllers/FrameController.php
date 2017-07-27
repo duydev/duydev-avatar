@@ -4,7 +4,9 @@ namespace DuyDev\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DuyDev\Repositories\FramesRepository as Frame;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Slugify;
 
 class FrameController extends Controller
 {
@@ -50,8 +52,10 @@ class FrameController extends Controller
         ]);
 
         if( $frame ) {
-            $path_frame = $req->file('picture')->storeAs("user-$user_id", "frame-$frame->id", 'uploads');
-            $path_default =  $req->file('picture')->storeAs("user-$user_id", "default-$frame->id", 'uploads');
+            $frame_name = "frame-$frame->id.".$req->file('picture')->getClientOriginalExtension();
+            $default_name = "default-$frame->id.".$req->file('default_picture')->getClientOriginalExtension();
+            $path_frame = $req->file('picture')->storeAs("user-$user_id", $frame_name, 'uploads');
+            $path_default =  $req->file('default_picture')->storeAs("user-$user_id", $default_name, 'uploads');
             $frame->picture = $path_frame;
             $frame->default_picture = $path_default;
             $frame->save();
@@ -59,4 +63,32 @@ class FrameController extends Controller
         }
         return redirect()->back()->with('success',false)->with('message','Gặp lỗi trong lúc lưu. Vui lòng thử lại.');
     }
+
+    public function slug(Request $req) {
+        $slug = '';
+        if( $req->has('title') ) {
+            $slug = Slugify::slugify($req->title);
+            $_slug = $slug;
+            $num = 0;
+            while ( $this->frame->findBy('slug', $_slug) ) {
+                $_slug = sprintf('%s_%s', $slug, $num);
+                $num++;
+            }
+            $slug = $_slug;
+        }
+        return response()->json(compact('slug'));
+    }
+
+    public function showFrame($slug) {
+        $frame = $this->frame->findBy('slug', $slug);
+        if( ! $frame ){
+            abort(404);
+        }
+
+        list($width, $height) = getimagesize(Storage::disk('uploads')->url($frame->picture));
+        dd( getimagesize(Storage::disk('uploads')->url($frame->picture)) );
+
+        return view('pages.show_frame', compact('frame'));
+    }
+
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.30 on 2017-07-26.
+ * Generated for Laravel 5.4.30 on 2017-07-27.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12554,6 +12554,76 @@ namespace Collective\Html {
  
 }
 
+namespace Cocur\Slugify\Bridge\Laravel { 
+
+    class SlugifyFacade {
+        
+        /**
+         * Returns the slug-version of the string.
+         *
+         * @param string $string String to slugify
+         * @param string|array|null $options Options
+         * @return string Slugified version of the string
+         * @static 
+         */ 
+        public static function slugify($string, $options = null)
+        {
+            return \Cocur\Slugify\Slugify::slugify($string, $options);
+        }
+        
+        /**
+         * Adds a custom rule to Slugify.
+         *
+         * @param string $character Character
+         * @param string $replacement Replacement character
+         * @return \Slugify 
+         * @static 
+         */ 
+        public static function addRule($character, $replacement)
+        {
+            return \Cocur\Slugify\Slugify::addRule($character, $replacement);
+        }
+        
+        /**
+         * Adds multiple rules to Slugify.
+         *
+         * @param array  <string,string> $rules
+         * @return \Slugify 
+         * @static 
+         */ 
+        public static function addRules($rules)
+        {
+            return \Cocur\Slugify\Slugify::addRules($rules);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $ruleSet
+         * @return \Slugify 
+         * @static 
+         */ 
+        public static function activateRuleSet($ruleSet)
+        {
+            return \Cocur\Slugify\Slugify::activateRuleSet($ruleSet);
+        }
+        
+        /**
+         * Static method to create new instance of {@see Slugify}.
+         *
+         * @param array  <string,mixed> $options
+         * @return \Slugify 
+         * @static 
+         */ 
+        public static function create($options = array())
+        {
+            return \Cocur\Slugify\Slugify::create($options);
+        }
+         
+    }
+ 
+}
+
 namespace Yajra\Datatables\Facades { 
 
     class Datatables {
@@ -14701,6 +14771,8 @@ namespace  {
     class Form extends \Collective\Html\FormFacade {}
 
     class Html extends \Collective\Html\HtmlFacade {}
+
+    class Slugify extends \Cocur\Slugify\Bridge\Laravel\SlugifyFacade {}
 
     class Datatables extends \Yajra\Datatables\Facades\Datatables {}
  

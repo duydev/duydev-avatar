@@ -13,4 +13,13 @@ class Frame extends Model
     public function user() {
         return $this->belongsTo('DuyDev\User');
     }
+
+    public function picture() {
+        return asset("uploads/$this->picture");
+    }
+
+    public function default_picture() {
+        return asset("uploads/$this->default_picture");
+    }
+
 }

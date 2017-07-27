@@ -170,6 +170,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Slugify' => Cocur\Slugify\Bridge\Laravel\SlugifyFacade::class,
 
     ],
 
