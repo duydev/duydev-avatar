@@ -288,3 +288,11 @@
         });
     </script>
 @endpush
+
+@push('meta')
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ sprintf('Khung %s của %s', $frame->title, $frame->user->name ) }}"/>
+    <meta property="og:description" content="{{ $frame->description or '' }}" />
+    <meta property="og:image" content="{{ $frame->thumbnail() }}" />
+@endpush
