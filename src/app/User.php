@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'fb_id', 'fb_token',
+        'name', 'email', 'password', 'fb_id', 'fb_token', 'role_id',
     ];
 
     /**
@@ -26,4 +26,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function role() {
+        return $this->belongsTo('DuyDev\Role');
+    }
+
+    public function frames() {
+        return $this->hasMany('DuyDev\Frame');
+    }
+
+    public function avatar() {
+        $url = '';
+        if( $this->fb_id ) {
+            $url = "http://graph.facebook.com/$this->fb_id/picture?type=square";
+        }
+        return $url;
+    }
 }

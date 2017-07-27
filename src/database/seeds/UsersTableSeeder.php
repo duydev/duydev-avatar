@@ -26,8 +26,10 @@ class UsersTableSeeder extends Seeder
         $datas = [
             [
                 'name' => 'Trần Nhật Duy',
-                'email' => 'hi@duydev.me',
+                'email' => 'trannhatduy297@gmail.com',
                 'password' => bcrypt('nopass'),
+                'fb_id' => '1800002666682085',
+                'role_id' => 1,
             ]
         ];
 

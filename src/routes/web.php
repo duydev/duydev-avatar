@@ -11,19 +11,19 @@
 |
 */
 
-Route::group(['namespace'=>'Frontend'], function(){
-    Route::get('/', 'HomeController@index')->name('home');
+Route::get('/','HomeController@index')->name('home');
 
-    Route::group(['middleware'=>'guest'],function (){
-        Route::get('/fblogin', 'FBAuthController@login')->name('fblogin');
-        Route::get('/fbcallback', 'FBAuthController@callback')->name('fbcallback');
-    });
-
-
+Route::group(['middleware'=>'guest'],function(){
+    Route::get('login', 'Auth\FBAuthController@login')->name('login');
+    Route::get('fbcallback', 'Auth\FBAuthController@callback')->name('fbcallback');
 });
 
+Route::group(['middleware'=>'auth'],function(){
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+    Route::get('frame/create','FrameController@formCreate')->name('create_frame');
+    Route::post('frame/create','FrameController@add');
+});
 
-Route::get('/home', 'HomeController@index');
-
-Auth::routes();
+// Auth::routes();
 
