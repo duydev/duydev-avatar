@@ -22,6 +22,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('frame/create','FrameController@formCreate')->name('create_frame');
     Route::post('frame/create','FrameController@add');
     Route::post('slug', 'FrameController@slug')->name('slug');
+    Route::delete('/{slug}/delete','FrameController@delete')->name('delete_frame');
 });
 
 Route::get('/','HomeController@index')->name('home');

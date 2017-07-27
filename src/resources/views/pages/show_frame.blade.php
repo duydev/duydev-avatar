@@ -11,6 +11,9 @@
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title">{{ $frame->title }}</h3>
+                    <div class="pull-right">
+                        <div class="fb-like" data-href="{{ url()->current() }}" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                    </div>
                 </div>
                 <div class="box-body">
                     <div class="wrapper">
@@ -70,22 +73,44 @@
         <div class="col-md-12">
             <div class="box box-default">
                 <div class="box-body">
-                    <div class="avatar">
-                        <img src="{{ $frame->user->avatar() }}" alt="">
+                    <div class="col-md-2">
+                        <img src="{{ $frame->user->avatar() }}" style="width: 100%;">
                     </div>
-                    <div class="info">
-                        <ul>
-                            <li>{{ $frame->user->name }}</li>
-                        </ul>
+                    <div class="col-md-10">
+                        <div class="title">
+                            <h3>{{ $frame->user->name }}</h3>
+                        </div>
+                        <div class="frames">
+                            <h4>Khung đã tạo</h4>
+                            <div class="wrapper-frame">
+                                @if( $frame->user->frames->count() > 0 )
+                                    @foreach( $frame->user->frames as $frame )
+                                        <div class="col-md-3 item">
+                                            <img src="{{ $frame->thumbnail() }}" alt="" class="thumnail">
+                                            <a href="{{ $frame->permalink() }}" class="title">{{ $frame->title }}</a>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <p>Chưa có khung nào được thêm.</p>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="fb-comments" data-href="{{ url()->current() }}" data-width="100%" data-numposts="5"></div>
         </div>
     </div>
 @endsection
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('cropper/cropper.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('slick/slick-theme.css') }}">
     <style>
         .wrapper {
             position: relative;
@@ -120,11 +145,31 @@
             font-size: 1.25em;
         }
 
+        .item {
+            box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.1);
+        }
+
+        .item:hover {
+            box-shadow: 0px 5px 30px 0px rgba(0,0,0,0.05);
+        }
+
+        .item .thumnail {
+            width: 100%;
+        }
+
+        .item .title {
+            display: block;
+            margin: 15px 0;
+            font-size: 1.25em;
+            text-align: center;
+        }
+
     </style>
 @endpush
 
 @push('js')
     <script src="{{ asset('cropper/cropper.min.js') }}"></script>
+    <script src="{{ asset('slick/slick.min.js') }}"></script>
     <script>
         $(function(){
             var cropzone = $('.default img');
@@ -229,6 +274,14 @@
                 document.body.removeChild(link);
                 delete link;
             }
+
+            $('.wrapper-frame').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                dots: true,
+                autoplay: true,
+            });
 
         });
     </script>

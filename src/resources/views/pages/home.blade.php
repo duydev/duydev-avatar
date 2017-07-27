@@ -40,9 +40,9 @@
                 </div>
                 <div class="box-body">
                     <ul>
-                        <li>Số khung đã thêm: {{ $frame->count() }}</li>
-                        <li>Tổng số  lượt xem: {{ $frame->sum('view') }}</li>
-                        <li>Tổng số  lượt sử dụng: {{ $frame->sum('count') }}</li>
+                        <li>Số khung đã thêm: {{ $frames->count() }}</li>
+                        <li>Tổng số  lượt xem: {{ $frames->sum('view') }}</li>
+                        <li>Tổng số  lượt sử dụng: {{ $frames->sum('count') }}</li>
                     </ul>
                 </div>
             </div>

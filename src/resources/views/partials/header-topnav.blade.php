@@ -31,7 +31,7 @@
                         <ul class="dropdown-menu">
                             <!-- Menu Footer-->
                             <li>
-                                <a href="#" class="btn btn-default btn-flat">Khung đã tạo</a>
+                                <a href="{{ route('dashboard') }}" class="btn btn-default btn-flat">Khung đã tạo</a>
                             </li>
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();" class="btn btn-default btn-flat">Đăng xuất</a>

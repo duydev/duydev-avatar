@@ -129,4 +129,14 @@ class FrameController extends Controller
         return response()->json(['success'=>false,'message'=>'Lỗi trong quá trình xử lý ảnh.']);
     }
 
+    public function delete($slug){
+        $frame = $this->frame->findBy('slug', $slug);
+        if( ! $frame ) {
+            return redirect()->back()->with('success',false)->with('message','Khung này không tồn tại.');
+        }
+
+        $this->frame->delete($frame->id);
+        return redirect()->back()->with('success',true)->with('message','Xóa thành công.');
+    }
+
 }

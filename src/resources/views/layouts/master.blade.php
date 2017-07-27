@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="{{ asset('dist/css/skins/skin-blue.min.css') }}">
 
+    <link rel='shortcut icon' type='image/x-icon' href='{{ asset('favicon.ico') }}' />
+
     @stack('css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,6 +29,17 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue @yield('body-class')">
+
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=263703457450764";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 @yield('body-content')
 
