@@ -85,8 +85,8 @@ class FrameController extends Controller
             abort(404);
         }
 
-        list($width, $height) = getimagesize(public_path("uploads/$frame->picture"));
-
+        $frame->view++;
+        $frame->save();
 
         return view('pages.show_frame', compact('frame'));
     }
@@ -96,6 +96,9 @@ class FrameController extends Controller
         if( ! $frame ) {
             return response()->json(['success'=>false,'message'=>'Không tồn tại khung này.']);
         }
+
+        $frame->count++;
+        $frame->save();
 
         $input = $req->except('_token');
         $validator = Validator::make($input,[

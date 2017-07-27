@@ -53,6 +53,17 @@
                     </ol>
                 </div>
             </div>
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Thống kê</h3>
+                </div>
+                <div class="box-body">
+                    <ul>
+                        <li>Số lượt xem: {{ $frame->view }}</li>
+                        <li>Số lượt sử dụng: {{ $frame->count }}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
