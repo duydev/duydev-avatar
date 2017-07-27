@@ -2,6 +2,7 @@
 
 namespace DuyDev\Http\Controllers;
 
+use DuyDev\Frame;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +15,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
+        $lastest = Frame::orderBy('created_at', 'desc')->take(10)->get();
+        return view('pages.home', compact('lastest'));
     }
 
     public function dashboard()

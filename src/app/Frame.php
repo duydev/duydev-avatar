@@ -22,4 +22,12 @@ class Frame extends Model
         return asset("uploads/$this->default_picture");
     }
 
+    public function realpath() {
+        return public_path("uploads/$this->picture");
+    }
+
+    public function permalink() {
+        return route('show_frame', [$this->slug]);
+    }
+
 }

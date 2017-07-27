@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/','HomeController@index')->name('home');
-Route::get('/{slug}', 'FrameController@showFrame')->name('show_frame');
-
 Route::group(['middleware'=>'guest'],function(){
     Route::get('login', 'Auth\FBAuthController@login')->name('login');
     Route::get('fbcallback', 'Auth\FBAuthController@callback')->name('fbcallback');
@@ -26,6 +23,10 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('frame/create','FrameController@add');
     Route::post('slug', 'FrameController@slug')->name('slug');
 });
+
+Route::get('/','HomeController@index')->name('home');
+Route::get('/{slug}', 'FrameController@showFrame')->name('show_frame');
+Route::post('/{slug}/process', 'FrameController@processImage')->name('process_frame');
 
 // Auth::routes();
 

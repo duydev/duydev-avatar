@@ -59,7 +59,7 @@ class FrameController extends Controller
             $frame->picture = $path_frame;
             $frame->default_picture = $path_default;
             $frame->save();
-            return redirect()->back()->with('success',true)->with('message','Thêm thành công.');
+            return redirect()->route('show_frame', [$input['slug']])->with('success',true)->with('message','Thêm thành công.');
         }
         return redirect()->back()->with('success',false)->with('message','Gặp lỗi trong lúc lưu. Vui lòng thử lại.');
     }
@@ -85,10 +85,45 @@ class FrameController extends Controller
             abort(404);
         }
 
-        list($width, $height) = getimagesize(Storage::disk('uploads')->url($frame->picture));
-        dd( getimagesize(Storage::disk('uploads')->url($frame->picture)) );
+        list($width, $height) = getimagesize(public_path("uploads/$frame->picture"));
+
 
         return view('pages.show_frame', compact('frame'));
+    }
+
+    public function processImage($slug, Request $req) {
+        $frame = $this->frame->findBy('slug', $slug);
+        if( ! $frame ) {
+            return response()->json(['success'=>false,'message'=>'Không tồn tại khung này.']);
+        }
+
+        $input = $req->except('_token');
+        $validator = Validator::make($input,[
+            'image' => 'required|file|image|mimes:png'
+        ]);
+
+        if( $validator->fails() ) {
+            return response()->json(['success'=>false,'message'=> $validator->getMessageBag()->first('image') ]);
+        }
+
+        $cropped_image = imagecreatefrompng( $req->file('image')->getRealPath() );
+        $frame_image = imagecreatefrompng( $frame->realpath() );
+        if( $cropped_image && $frame_image ) {
+            $oW = imagesx( $frame_image );
+            $oH = imagesy( $frame_image );
+            $merge_image = imagecreatetruecolor( $oW, $oH );
+            imagecopyresized( $merge_image, $cropped_image, 0, 0, 0, 0, $oW, $oH, imagesx( $cropped_image ), imagesy( $cropped_image ) );
+            imagecopy( $merge_image, $frame_image, 0, 0, 0, 0, $oW, $oH );
+            ob_start();
+            imagepng($merge_image);
+            $image_data = sprintf('data:image/png;base64,%s', base64_encode( ob_get_clean() ));
+            imagedestroy( $merge_image );
+            imagedestroy( $cropped_image );
+            imagedestroy( $frame_image );
+            return response()->json(['success'=>true,'message'=>'Tạo thành công.','image'=>$image_data]);
+        }
+
+        return response()->json(['success'=>false,'message'=>'Lỗi trong quá trình xử lý ảnh.']);
     }
 
 }
