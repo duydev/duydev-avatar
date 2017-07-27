@@ -7,6 +7,8 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
+    <meta property="fb:admins" content="Trannhatduy"/>
+    <meta property="fb:app_id" content="{{ config('facebook.config.app_id') }}"/>
     @stack('meta')
 
     <!-- Bootstrap 3.3.6 -->

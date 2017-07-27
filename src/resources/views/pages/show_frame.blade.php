@@ -1,5 +1,13 @@
 @extends('layouts.topnav')
 
+@push('meta')
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ sprintf('Khung %s của %s', $frame->title, $frame->user->name ) }}"/>
+    <meta property="og:description" content="{{ $frame->description or 'Click vào đây để tạo avatar với khung này nhé. ;)' }}" />
+    <meta property="og:image" content="{{ $frame->thumbnail() }}" />
+@endpush
+
 @section('page-title', sprintf('Khung %s của %s', $frame->title, $frame->user->name ) )
 
 @section('page-header','')
@@ -289,10 +297,3 @@
     </script>
 @endpush
 
-@push('meta')
-    <meta property="og:url" content="{{ url()->current() }}"/>
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ sprintf('Khung %s của %s', $frame->title, $frame->user->name ) }}"/>
-    <meta property="og:description" content="{{ $frame->description or '' }}" />
-    <meta property="og:image" content="{{ $frame->thumbnail() }}" />
-@endpush
